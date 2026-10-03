@@ -6,7 +6,7 @@ EduGenie is a student learning assistant built with FastAPI, HTML, CSS, and Java
 
 - Gemini-powered Q&A, explanations, quizzes, summaries, and learning recommendations
 - Readable formatted AI answers with clear headings, lists, and code examples across features
-- Google sign-in plus email/password registration, verification, sign-in, and password reset
+- Guest access to every learning tool; optional Google/email sign-in to save private chat history
 - Interactive quizzes with answer feedback
 - Private per-account chat history stored in a local SQLite database
 - AI-generated, personalized roadmaps for learner-entered topics and goals
@@ -49,7 +49,7 @@ EduGenie is a student learning assistant built with FastAPI, HTML, CSS, and Java
 
 The SQLite database is created automatically at `data/edugenie.sqlite3` when the app starts locally. On Vercel it defaults to the writable temporary directory because the deployed project files are read-only; that temporary database is not durable and chat history may be lost between function instances or deployments. Existing Streamlit chat messages in `chat_history.json` are imported into SQLite once; the JSON file is left in place as a backup. The database does not require Firestore, a service-account file, or Google Cloud database setup. You can change its location with `DATABASE_PATH`. The `.db` and `.sqlite3` files are excluded from Git.
 
-Firebase sign-in and Gemini answers still require an internet connection. Firebase is used only for authentication; chat history stays in the local SQLite database.
+The learning tools are available without signing in. Guest chats are not saved; signing in is optional and enables per-account chat history. Firebase sign-in and Gemini answers require an internet connection. Firebase is used only for authentication; chat history stays in the local SQLite database.
 
 ## Environment variables
 
@@ -78,7 +78,7 @@ python -m pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000). Sign in with Google or create an email account, verify its email, and then use the AI features. If the local site does not open, confirm the server command is still running in the terminal.
+Open [http://localhost:8000](http://localhost:8000). Use the learning tools immediately without an account; sign in only if you want to save chat history. If the local site does not open, confirm the server command is still running in the terminal.
 
 ## API endpoints
 
